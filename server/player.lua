@@ -281,6 +281,11 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline)
             TriggerEvent('QBCore:Server:OnMoneyChange', self.PlayerData.source, moneytype, amount, 'add', reason)
         end
 
+        -- Added Code (highqez_cashitem)
+        if self and self.PlayerData and self.PlayerData.source then
+            TriggerEvent('highqez_cashitem:server:AddMoney', self.PlayerData.source, moneytype, amount, self.PlayerData.money[moneytype], reason)
+        end
+
         return true
     end
 
@@ -314,6 +319,11 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline)
             TriggerEvent('QBCore:Server:OnMoneyChange', self.PlayerData.source, moneytype, amount, 'remove', reason)
         end
 
+        -- Added Code (highqez_cashitem)
+        if self and self.PlayerData and self.PlayerData.source then
+            TriggerEvent('highqez_cashitem:server:RemoveMoney', self.PlayerData.source, moneytype, amount, self.PlayerData.money[moneytype], reason)
+        end
+
         return true
     end
 
@@ -332,6 +342,11 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline)
             TriggerClientEvent('hud:client:OnMoneyChange', self.PlayerData.source, moneytype, math.abs(difference), difference < 0)
             TriggerClientEvent('QBCore:Client:OnMoneyChange', self.PlayerData.source, moneytype, amount, 'set', reason)
             TriggerEvent('QBCore:Server:OnMoneyChange', self.PlayerData.source, moneytype, amount, 'set', reason)
+        end
+        
+        -- Added Code (highqez_cashitem)
+        if self and self.PlayerData and self.PlayerData.source then
+            TriggerEvent('highqez_cashitem:server:SetMoney', self.PlayerData.source, moneytype, amount, reason)
         end
 
         return true
